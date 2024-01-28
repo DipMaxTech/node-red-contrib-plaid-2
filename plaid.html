@@ -1,0 +1,139 @@
+<script type="text/html" data-template-name="plaid-credentials">
+  <div class="form-row">
+    <label for="node-config-input-input-account_email">Account Email</label>
+    <input type="text" id="node-config-input-account_email" />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-client_id">Client Id</label>
+    <input type="password" id="node-config-input-client_id" />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-secret">Secret</label>
+    <input type="password" id="node-config-input-secret" />
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="plaid-credentials">
+  <h3>Details</h3>
+  <p>Plaid Creds</p>
+  
+</script>
+
+<script type="text/javascript">
+    (function () {
+      RED.nodes.registerType("plaid-credentials", {
+        category: "config",
+        color: "#a6bbcf",
+        defaults: {
+          name: {value: ""},
+          account_email: { type: "text", value: "" },
+        },
+        credentials: {
+          secret: { type: "password" },
+          client_id: { type: "password" },
+        },
+        label: function () {
+          return this.account_email || "plaidCredentials";
+        },
+        exportable: false,
+      });
+    })();
+  </script>
+
+<script type="text/html" data-template-name="plaid-item-credentials">
+  <div class="form-row">
+    <label for="node-config-input-env">Enviroment</label>
+    <select type="text" id="node-config-input-env" style="width:70%;">
+      <option value="development">Development</option>
+      <option value="sandbox">Sandbox</option>
+      <option value="production">Production</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-input-item_id">Item Id</label>
+    <input type="text" id="node-config-input-item_id" />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-input-bank">Bank</label>
+    <input type="text"  id="node-config-input-bank" />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-access_token">Access Token</label>
+    <input  type="password" id="node-config-input-access_token" />
+  </div>
+</script>
+
+<script type="text/html" data-help-name="plaid-item-credentials">
+  <p>
+    Item help TBA
+  </p>
+</script>
+
+<script type="text/javascript">
+  (function () {
+    RED.nodes.registerType("plaid-item-credentials", {
+      category: "config",
+      color: "#a6bbcf",
+      defaults: {
+        name: {value: ""},
+        item_id: {value: ""},
+        bank: {value: ""},
+        env: { type: "text", value: "sandbox" },
+      },
+      credentials: {
+        access_token: { type: "password" },
+      },
+      label: function () {
+        return this.bank || "itemCredentials";
+      },
+      exportable: false,
+      
+    });
+  })();
+</script>
+
+<script type="text/javascript">
+      RED.nodes.registerType("plaid-api", {
+        category: "function",
+        defaults: {
+          plaid: { type: "plaid-credentials", required: true},
+          item: {type: "plaid-item-credentials", required: true},
+          name: { value: "" },
+          client: {value: "CLIENT"}
+        },
+        color: "#a6bbcf",
+        inputs: 1,
+        outputs: 1,
+        icon: "file.svg",
+        label: function () {
+          return this.name || "plaidApi";
+        }
+      });
+    </script>
+
+<script type="text/html" data-template-name="plaid-api">
+      <div class="form-row">
+        <label for="node-config-input-plaid">Plaid Credentials</label>
+        <input type="text" id="node-input-plaid" >
+      </div>
+      <div class="form-row">
+        <label for="node-config-input-item">Plaid Item</label>
+        <input type="text" id="node-input-item" >
+      </div>
+      <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+      </div>
+      <div class="form-row">
+        <label for="node-input-method">Method</label>
+        <select type="text" id="node-input-method" style="width:70%;">
+          <option value="get">Balance</option>
+        </select>
+      </div>
+    </script>
+
+<script type="text/html" data-help-name="plaid-api">
+      <p>
+        A simple Node to fetch balances
+      </p>
+</script>
