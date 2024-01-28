@@ -11,9 +11,9 @@
   "node-red": {
     "nodes": {
       "plaid": "plaid.js"
-    },
-    "dependencies": {
-      "plaid": "^19.0.0"
     }
+  },
+  "dependencies": {
+    "plaid": "^19.0.0"
   }
 }
